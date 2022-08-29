@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from 'ire-forms';
 
+enum Operation {
+  Sum = 'sum',
+}
+
 interface Item {
+  operation: Operation;
   value: any;
 }
 
@@ -15,6 +20,17 @@ export class HomeComponent {
 
   readonly form = FormBuilder.build({
     fields: [
+      FormBuilder.select({
+        name: 'op',
+        label: 'Operation',
+        options: [
+          {
+            label: 'Sum',
+            value: Operation.Sum,
+          },
+        ],
+        index: 0,
+      }),
       FormBuilder.numberInput({
         name: 'arg1',
         label: 'Argument 1',
@@ -33,12 +49,13 @@ export class HomeComponent {
   }
 
   handleSubmit() {
-    const { arg1, arg2 } = this.form.value;
+    const { op, arg1, arg2 } = this.form.value;
     this.list.push({
       // value: Number.parseFloat(arg1) + Number.parseFloat(arg2),
+      operation: op,
       value: arg1 + arg2,
     });
-    this.form.clean();
+    this.form.reset();
     this.form.get('arg1')?.focus();
   }
 }

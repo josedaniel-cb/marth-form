@@ -35,7 +35,7 @@
       class="mt-8 rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
       (click)="handleSubmit()"
     >
-      Submit
+      Calculate
     </button>
 
     <div *ngIf="list.length > 0" class="relative mt-6 overflow-x-auto">
@@ -44,6 +44,7 @@
           class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+            <th scope="col" class="py-3 px-6">Operation</th>
             <th scope="col" class="py-3 px-6">Value</th>
             <!-- <th scope="col" class="py-3 px-6">Color</th>
             <th scope="col" class="py-3 px-6">Category</th>
@@ -55,6 +56,12 @@
             *ngFor="let item of list"
             class="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
           >
+            <th
+              scope="row"
+              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+            >
+              {{ item.operation }}
+            </th>
             <th
               scope="row"
               class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
