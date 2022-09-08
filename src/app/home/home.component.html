@@ -1,7 +1,14 @@
 <div class="min-h-[100vh] w-full bg-slate-100 p-6">
   <div class="rounded-lg bg-white p-6 shadow-lg">
     <div class="mb-6 text-3xl font-medium">Calculate</div>
-    <ire-form [controller]="form"></ire-form>
+    <ire-form [controller]="options"></ire-form>
+    <div class="h-6"></div>
+    <div [hidden]="currentOperation !== operationsList.Rolliza">
+      <ire-form [controller]="op1"></ire-form>
+    </div>
+    <div [hidden]="currentOperation !== operationsList.Aserrada">
+      <ire-form [controller]="op2"></ire-form>
+    </div>
     <!-- <div class="mb-6">
       <label
         for="exampleInputEmail1"
@@ -31,6 +38,8 @@
         placeholder="Password"
       />
     </div> -->
+
+    <!-- https://www.syncfusion.com/blogs/post/easy-steps-to-host-an-angular-app-in-github-pages.aspx -->
     <div class="flex">
       <button
         class="mt-8 rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
@@ -40,7 +49,7 @@
       </button>
       <button
         class="ml-4 mt-8 rounded bg-slate-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
-        (click)="form.reset()"
+        (click)="reset()"
       >
         Reset
       </button>
@@ -48,7 +57,7 @@
         class="ml-4 mt-8 rounded bg-slate-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
         (click)="list = []"
       >
-        Empty table
+        Clear history
       </button>
     </div>
 
@@ -58,18 +67,22 @@
           class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+            <th scope="col" class="py-3 px-6">#</th>
             <th scope="col" class="py-3 px-6">Operation</th>
             <th scope="col" class="py-3 px-6">Value</th>
-            <!-- <th scope="col" class="py-3 px-6">Color</th>
-            <th scope="col" class="py-3 px-6">Category</th>
-            <th scope="col" class="py-3 px-6">Price</th> -->
           </tr>
         </thead>
         <tbody>
           <tr
-            *ngFor="let item of list"
+            *ngFor="let item of list; index as i"
             class="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
           >
+            <th
+              scope="row"
+              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+            >
+              {{ i + 1 }}
+            </th>
             <th
               scope="row"
               class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
@@ -83,39 +96,6 @@
               {{ item.value }}
             </th>
           </tr>
-          <!-- <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-            <th
-              scope="row"
-              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-            >
-              Apple MacBook Pro 17"
-            </th>
-            <td class="py-4 px-6">Sliver</td>
-            <td class="py-4 px-6">Laptop</td>
-            <td class="py-4 px-6">$2999</td>
-          </tr>
-          <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-            <th
-              scope="row"
-              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-            >
-              Microsoft Surface Pro
-            </th>
-            <td class="py-4 px-6">White</td>
-            <td class="py-4 px-6">Laptop PC</td>
-            <td class="py-4 px-6">$1999</td>
-          </tr>
-          <tr class="bg-white dark:bg-gray-800">
-            <th
-              scope="row"
-              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-            >
-              Magic Mouse 2
-            </th>
-            <td class="py-4 px-6">Black</td>
-            <td class="py-4 px-6">Accessories</td>
-            <td class="py-4 px-6">$99</td>
-          </tr> -->
         </tbody>
       </table>
     </div>
