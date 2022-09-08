@@ -8,7 +8,8 @@ enum Operation {
 
 interface Item {
   operation: Operation;
-  value: any;
+  valuePt: any;
+  valueM3: any;
 }
 
 @Component({
@@ -77,7 +78,6 @@ export class HomeComponent {
   ngOnInit() {
     // this.currentOperation = this.options.value['op'];
     this.options.valueChanges.subscribe(({ op }) => {
-      this.reset();
       this.currentOperation = op;
     });
   }
@@ -89,31 +89,32 @@ export class HomeComponent {
   }
 
   async handleSubmit() {
-    let value = 0;
+    let valuePt = 0;
+    let valueM3 = 0;
     switch (this.currentOperation) {
       case Operation.Rolliza:
         const { dap, lon } = this.op1.value;
-        value = (Math.pow(dap - 4, 2) / 16) * lon;
+        valuePt = (Math.pow(dap - 4, 2) / 16) * lon;
+        valueM3 = valuePt / 220;
         break;
       case Operation.Aserrada:
         const { e, a, l } = this.op2.value;
-        value = (e * a * l) / 12;
+        valuePt = (e * a * l) / 12;
+        valueM3 = valuePt / 424;
         break;
     }
     this.list.push({
       operation: this.currentOperation,
-      value,
+      valuePt,
+      valueM3,
     });
     this.reset();
     this.options.get('arg1')?.focus();
   }
 
   reset() {
-    // this.options.reset();
-    // this.op1.reset();
-    // this.op2.reset();
-    // this.options.clean();
-    // this.op1.clean();
-    // this.op2.clean();
+    this.options.reset();
+    this.op1.reset();
+    this.op2.reset();
   }
 }

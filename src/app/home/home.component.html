@@ -69,7 +69,8 @@
           <tr>
             <th scope="col" class="py-3 px-6">#</th>
             <th scope="col" class="py-3 px-6">Operation</th>
-            <th scope="col" class="py-3 px-6">Value</th>
+            <th scope="col" class="py-3 px-6">Value (pt)</th>
+            <th scope="col" class="py-3 px-6">Value (m3)</th>
           </tr>
         </thead>
         <tbody>
@@ -93,11 +94,18 @@
               scope="row"
               class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
             >
-              {{ item.value }}
+              {{ item.valuePt.toFixed(2) }}
+            </th>
+            <th
+              scope="row"
+              class="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+            >
+              {{ item.valueM3.toFixed(2) }}
             </th>
           </tr>
         </tbody>
       </table>
+      <div class="text-2 mt-2 text-end">🕷️❤️</div>
     </div>
   </div>
 </div>
