@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder } from 'ire-forms';
+import localStorageService from './local-storage';
 
 enum Operation {
   Rolliza = 'Rolliza Doyle',
@@ -17,7 +18,7 @@ interface Item {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnChanges {
   list: Item[] = [];
   operationsList = Operation;
   currentOperation!: Operation;
@@ -76,10 +77,19 @@ export class HomeComponent {
   });
 
   ngOnInit() {
+    const list = localStorageService.getObject<Item[]>('list');
+    if (list !== null) {
+      this.list = list;
+    }
+
     // this.currentOperation = this.options.value['op'];
     this.options.valueChanges.subscribe(({ op }) => {
       this.currentOperation = op;
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
   ngAfterViewInit() {
@@ -108,8 +118,14 @@ export class HomeComponent {
       valuePt,
       valueM3,
     });
+    localStorageService.set('list', this.list);
     this.reset();
     this.options.get('arg1')?.focus();
+  }
+
+  clear() {
+    this.list = [];
+    localStorageService.set('list', this.list);
   }
 
   reset() {
