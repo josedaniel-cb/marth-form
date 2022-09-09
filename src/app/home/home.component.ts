@@ -50,10 +50,12 @@ export class HomeComponent implements OnChanges {
       FormBuilder.numberInput({
         name: 'dap',
         label: 'DAP',
+        fractionDigits: 2,
       }),
       FormBuilder.numberInput({
         name: 'lon',
         label: 'LON',
+        fractionDigits: 2,
       }),
     ],
   });
@@ -64,14 +66,17 @@ export class HomeComponent implements OnChanges {
       FormBuilder.numberInput({
         name: 'e',
         label: 'E',
+        fractionDigits: 2,
       }),
       FormBuilder.numberInput({
         name: 'a',
         label: 'A',
+        fractionDigits: 2,
       }),
       FormBuilder.numberInput({
         name: 'l',
         label: 'L',
+        fractionDigits: 2,
       }),
     ],
   });
